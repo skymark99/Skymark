@@ -84,7 +84,7 @@ const verify = catchAsync(async (req, res, next) => {
     currentUser,
   });
 });
-const mails = ["arjun7180@gmail.com", "skymarkdubai@gmail.com"];
+const mails = ["skymarkdubai@gmail.com"];
 const signUp = catchAsync(async (req, res, next) => {
   const { name, email, password, phone } = req.body;
 
