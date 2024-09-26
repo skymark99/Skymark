@@ -11,8 +11,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://accountingfrontend.onrender.com",
-   // origin: "https://accounting-frontend-ten.vercel.app",
+    // origin: "https://accountingfrontend.onrender.com",
+   origin: "https://accounting-frontend-ten.vercel.app",
     // origin: "http://localhost:5173",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
