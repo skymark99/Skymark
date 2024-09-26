@@ -16,7 +16,7 @@ const { protect } = require("../Controller/authController");
 router.use("/user", userRoute);
 
 router.use("/logs", logRoute);
-router.use(protect);
+// router.use(protect);
 
 router.use("/bank", bankRoute);
 router.use("/branch", branchRoute);
