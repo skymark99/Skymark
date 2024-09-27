@@ -9,10 +9,21 @@ const cookieParser = require("cookie-parser");
 
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "https://accountingfrontend.onrender.com",
+  "https://accounting-frontend-ten.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: "https://accounting-frontend-ten.vercel.app",
-    // origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
