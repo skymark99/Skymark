@@ -49,16 +49,16 @@ const addParticular = catchAsync(async (req, res, next) => {
   const currentDateAndTime = combineDateWithCurrentTime(new Date());
   currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
 
-  const log = new Log({
-    log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
-      req.user.name
-    } added a new particular ${
-      particular.name
-    } to the ${catagoryName} catagory`,
-    user: req.user._id,
-  });
+  // const log = new Log({
+  //   log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
+  //     req.user.name
+  //   } added a new particular ${
+  //     particular.name
+  //   } to the ${catagoryName} catagory`,
+  //   user: req.user._id,
+  // });
 
-  await log.save();
+  // await log.save();
 
   res.status(201).json({
     status: "Success",
@@ -101,16 +101,16 @@ const updateParticular = catchAsync(async (req, res, next) => {
   const currentDateAndTime = combineDateWithCurrentTime(new Date());
   currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
 
-  const log = new Log({
-    log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
-      req.user.name
-    } updated the particular from ${particularName} to ${
-      particular.name
-    } in the ${catagoryName} catagory`,
-    user: req.user._id,
-  });
+  // const log = new Log({
+  //   log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
+  //     req.user.name
+  //   } updated the particular from ${particularName} to ${
+  //     particular.name
+  //   } in the ${catagoryName} catagory`,
+  //   user: req.user._id,
+  // });
 
-  await log.save();
+  // await log.save();
 
   res.status(200).json({
     status: "Success",

@@ -104,18 +104,18 @@ const createOne = (Model, type) => {
     const createdData = await Model.create(req.body);
     if (!createdData) return next(new AppError("Error while createing model"));
 
-    if (Model === Catagory) {
-      const currentDateAndTime = combineDateWithCurrentTime(new Date());
-      currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
+    // if (Model === Catagory) {
+    //   const currentDateAndTime = combineDateWithCurrentTime(new Date());
+    //   currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
 
-      const log = new Log({
-        log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
-          req.user.name
-        } created a new ${Model.modelName} called ${createdData.name} `,
-        user: req.user._id.toString(),
-      });
-      await log.save();
-    }
+    //   const log = new Log({
+    //     log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
+    //       req.user.name
+    //     } created a new ${Model.modelName} called ${createdData.name} `,
+    //     user: req.user._id.toString(),
+    //   });
+    //   await log.save();
+    // }
 
     res.status(200).json({
       status: "Success",

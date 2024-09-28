@@ -26,8 +26,8 @@ const liabilitySchema = mongoose.Schema(
     purpose: {
       type: String,
       required: [true, "Transaction must have a purpose"],
-      minlength: [3, "Purpose must be at least 3 characters long"], // Updated message
-      maxlength: [60, "Purpose must be less than 20 characters long"], // Updated message
+      minlength: [3, "Purpose must be at least 3 characters long"],
+      maxlength: [60, "Purpose must be less than 20 characters long"],
     },
 
     amount: {
@@ -44,10 +44,10 @@ const liabilitySchema = mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Paid", "Unpaid", "Postponed"],
+      enum: ["Paid", "Unpaid", "Postponed", "Pending"],
       required: [
         true,
-        "Liability must have a status ('Paid', 'Unpaid', or 'Postponed')",
+        "Liability/Outstanding must have a status ('Paid', 'Unpaid', 'Postponed', or 'Pending')",
       ],
     },
 
