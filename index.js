@@ -12,7 +12,7 @@ mongoose
   .catch((err) => console.error("Error connecting to database:", err)); // Changed to console.error for better visibility
 
 // Improved error handling for server start
-app.listen(443, (err) => {
+app.listen(3000, (err) => {
   if (err) {
     console.error("Error starting the server:", err); // Better error handling
   } else {
