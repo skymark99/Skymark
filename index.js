@@ -16,6 +16,6 @@ app.listen(3000, (err) => {
   if (err) {
     console.error("Error starting the server:", err); // Better error handling
   } else {
-    console.log("Server is running on port 443");
+    console.log("Server is running on port 3000");
   }
 });
