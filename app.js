@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "https://accountingfrontend.onrender.com",
-  "https://accounting-frontend-ten.vercel.app",
+  "https://accounting-frontend-eight.vercel.app",
   "http://localhost:5173",
 ];
 
