@@ -84,11 +84,11 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
     }
 
     if (type === "Credit") {
-      if (curBranch[curBank] < branchAmount) {
-        return next(
-          new AppError(`${branchName}'s balance in ${curBank} is low`, 400)
-        );
-      }
+      // if (curBranch[curBank] < branchAmount) {
+      //   return next(
+      //     new AppError(`${branchName}'s balance in ${curBank} is low`, 400)
+      //   );
+      // }
       curBranch[curBank] -= branchAmount;
     } else {
       curBranch[curBank] += branchAmount;
@@ -103,9 +103,9 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
     return next(new AppError(`Bank ${curBank} not found`, 404));
   }
 
-  if (bank.balance < amount) {
-    return next(new AppError(`Your ${curBank}'s balance is low`, 400));
-  }
+  // if (bank.balance < amount) {
+  //   return next(new AppError(`Your ${curBank}'s balance is low`, 400));
+  // }
 
   bank.balance -= amount;
   bankUpdates.push(bank.save()); // Collect bank update promises

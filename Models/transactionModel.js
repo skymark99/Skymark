@@ -107,8 +107,8 @@ transactionShema.pre("save", async function (next) {
     if (this.type === "Credit") {
       branch[this.bank] += details.amount;
     } else if (this.type === "Debit") {
-      if (branch[this.bank] < details.amount)
-        return next(new AppError("Branch balance is low..", 401));
+      // if (branch[this.bank] < details.amount)
+      //   return next(new AppError("Branch balance is low..", 401));
 
       branch[this.bank] -= details.amount;
     }
