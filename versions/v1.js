@@ -11,6 +11,7 @@ const eventRoute = require("../Routes/eventRoutes");
 const catagoryRoute = require("../Routes/catagoryRoutes");
 const particularRoute = require("../Routes/particularRoutes");
 const logRoute = require("../Routes/logRoutes");
+const universityRoute = require("../Routes/universityRoutes");
 const { protect } = require("../Controller/authController");
 
 router.use("/user", userRoute);
@@ -27,5 +28,6 @@ router.use("/particular", particularRoute);
 router.use("/transaction", transactionRoute);
 router.use("/reminders", reminderRoute);
 router.use("/liability", liabilityRoute);
+router.use("/university", universityRoute);
 
 module.exports = router;

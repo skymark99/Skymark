@@ -94,7 +94,7 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
       curBranch[curBank] += branchAmount;
     }
 
-    branchUpdates.push(curBranch.save()); // Collect branch update promises
+    branchUpdates.push(curBranch.save());
   }
 
   // Update bank balance
