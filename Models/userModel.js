@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
     phone: {
       type: String,
       unique: true,
-      required: [true, "User must have a phone number"],
+      // required: [true, "User must have a phone number"],
       validate: {
         validator: function (value) {
           return value.length >= 10 && value.length <= 13;
