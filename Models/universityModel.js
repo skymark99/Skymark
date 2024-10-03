@@ -75,10 +75,17 @@ const universitySchema = mongoose.Schema(
       type: Number,
       required: [true, "Must need INR"],
     },
+    receivable: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
 
+universitySchema.pre("save", async function (next) {
+  this.receivable = (this.commition / 100) * this.courseFee;
+  next();
+});
 universitySchema.pre("save", async function (next) {
   const combinedDateTime = combineDateWithCurrentTime(this.date);
 

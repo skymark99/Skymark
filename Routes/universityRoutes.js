@@ -5,8 +5,11 @@ const {
   createUniversity,
   updateUniversity,
   deleteUniversity,
+  getTotalReceivable,
 } = require("../Controller/universityController");
 const router = express.Router();
+
+router.get("/totals", getTotalReceivable);
 
 router.get("/", getAllUniv);
 router.get("/:id", getUniversity);

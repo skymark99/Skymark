@@ -71,7 +71,12 @@ class APIFeatures {
           { branch: { $regex: searchRegex } },
           { branchName: { $regex: searchRegex } },
           { type: { $regex: searchRegex } },
-          { formattedDate: { $regex: searchRegex } },
+          { agent: { $regex: searchRegex } },
+          { counsillor: { $regex: searchRegex } },
+          { currency: { $regex: searchRegex } },
+          { student: { $regex: searchRegex } },
+          { intakeMonth: { $regex: searchRegex } },
+          { country: { $regex: searchRegex } },
           {
             status: {
               $regex: `^${escapedSearch.substring(0, 4)}`,
@@ -84,6 +89,42 @@ class APIFeatures {
             $expr: {
               $regexMatch: {
                 input: { $toString: "$amount" },
+                regex: this.queryStr.search,
+                options: "i",
+              },
+            },
+          },
+          {
+            $expr: {
+              $regexMatch: {
+                input: { $toString: "$receivable" },
+                regex: this.queryStr.search,
+                options: "i",
+              },
+            },
+          },
+          {
+            $expr: {
+              $regexMatch: {
+                input: { $toString: "$courseFee" },
+                regex: this.queryStr.search,
+                options: "i",
+              },
+            },
+          },
+          {
+            $expr: {
+              $regexMatch: {
+                input: { $toString: "$inr" },
+                regex: this.queryStr.search,
+                options: "i",
+              },
+            },
+          },
+          {
+            $expr: {
+              $regexMatch: {
+                input: { $toString: "$commition" },
                 regex: this.queryStr.search,
                 options: "i",
               },
