@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const compression = require("compression");
 const AppError = require("./Utilities/appError");
 const versionOne = require("./versions/v1");
 const globalErrorHandler = require("./Utilities/globalErrorhandler");
 const cookieParser = require("cookie-parser");
+
+app.use(compression({ threshold: 512 })); // Compress only responses larger than 512 bytes
 
 app.use(cookieParser());
 
