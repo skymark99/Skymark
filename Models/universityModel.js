@@ -60,11 +60,20 @@ const universitySchema = mongoose.Schema(
     status: {
       type: String,
       required: [true, "University must have a status"],
-      enum: ["Invoice Shared", "Mail Pending", "Pending", "Recieved"],
+      enum: ["Invoice Shared", "Mail Pending", "Pending", "Received"],
     },
     agent: {
       type: String,
       required: [true, "University Must have an agent name"],
+    },
+    currency: {
+      type: String,
+      enum: ["USD", "Pound", "CAD", "Euro"],
+      required: [true, "Commition must have a currency"],
+    },
+    inr: {
+      type: Number,
+      required: [true, "Must need INR"],
     },
   },
   { timestamps: true }
