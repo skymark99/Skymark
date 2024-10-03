@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 const allowedOrigins = [
-  "https://accounting-frontend-eight.vercel.app",
+  "https://accounting-frontend-five.vercel.app",
   "http://localhost:5173",
 ];
 
