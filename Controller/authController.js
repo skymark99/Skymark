@@ -12,12 +12,12 @@ const sendToken = (user, statusCode, res) => {
   const token = generateToken(user._id);
   if (!token) return next(new AppError("Server failed to create token", 500));
 
-  res.cookie("token", token,   {
+  res.cookie("token", token, {
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    maxAge: 24 * 60 * 60 * 1000, // Set to 1 day
   });
-
 
   const currentUser = {
     email: user.email,
