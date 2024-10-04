@@ -15,8 +15,9 @@ const sendToken = (user, statusCode, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     secure: true,
-    sameSite: "none",
-    maxAge: 24 * 60 * 60 * 1000, // Set to 1 day
+    sameSite: "lax",
+    domain: "accounting-frontend-black.vercel.app", // Remove https://
+    maxAge: 24 * 60 * 60 * 1000,
   });
 
   const currentUser = {
