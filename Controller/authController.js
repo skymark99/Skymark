@@ -16,8 +16,8 @@ const sendToken = (user, statusCode, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "none",
-    domain: "accounting-frontend-black.vercel.app", // Remove https://
     maxAge: 24 * 60 * 60 * 1000,
+    credentials: true, // Add this to ensure cookies are included in cross-origin requests
   });
 
   const currentUser = {
