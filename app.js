@@ -12,7 +12,7 @@ app.use(compression({ threshold: 512 })); // Compress only responses larger than
 app.use(cookieParser());
 
 const allowedOrigins = [
-  "https://accounting-software-kappa.vercel.apps",
+  "https://accounting-frontend-chi.vercel.app",
   "http://localhost:5173",
 ];
 
