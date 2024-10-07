@@ -1,4 +1,5 @@
 const Bank = require("../Models/bankModel");
+const AppError = require("../Utilities/appError");
 
 const catchAsync = require("../Utilities/catchAsync");
 const {
@@ -8,6 +9,33 @@ const {
   updateOne,
   deleteOne,
 } = require("./handlerFactory");
+
+const bankTransfer = catchAsync(async (req, res, next) => {
+  const { from, to, amount } = req.body;
+
+  const fromBank = await Bank.findOne({ name: from });
+  const toBank = await Bank.findOne({ name: to });
+
+  if (!fromBank || !toBank) return next(new AppError("Invalid banks..."));
+
+  let amt;
+
+  if (Number(amount)) {
+    amt = Number(amount);
+  } else {
+    return next(new AppError("Invalid Number"));
+  }
+
+  fromBank.balance -= amt;
+  toBank.balance += amt;
+
+  await fromBank.save();
+  await toBank.save();
+
+  res
+    .status(200)
+    .json({ status: "Success", message: "Successfully updated banks" });
+});
 
 const getBalance = catchAsync(async (req, res, next) => {
   const banks = await Bank.find({});
@@ -47,4 +75,5 @@ module.exports = {
   updateBank,
   deleteBank,
   getBalance,
+  bankTransfer,
 };

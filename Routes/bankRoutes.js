@@ -6,9 +6,11 @@ const {
   getBank,
   deleteBank,
   getBalance,
+  bankTransfer,
 } = require("../Controller/bankController");
 const router = express.Router();
 
+router.post("/bank-transfer", bankTransfer);
 router.get("/balance", getBalance);
 
 router.get("/", getAllBank);
