@@ -17,10 +17,9 @@ const particularsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-particularsSchema.pre("save", (next) => {
-  this.name = this.name.trim();
-  next();
-});
+// particularsSchema.pre("save", (next) => {
+//   next();
+// });
 
 const Particulars = mongoose.model("Particulars", particularsSchema);
 
