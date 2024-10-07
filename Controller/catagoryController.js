@@ -13,8 +13,7 @@ const {
 } = require("./handlerFactory");
 
 const addParticular = catchAsync(async (req, res, next) => {
-  const { catagoryName } = req.query;
-  const { particular } = req.body;
+  const { particular, catagoryName } = req.body;
 
   if (!catagoryName)
     return next(new AppError("Catagory name is required", 400));
@@ -22,7 +21,7 @@ const addParticular = catchAsync(async (req, res, next) => {
   if (!particular.name)
     return next(new AppError("Particular name is required", 400));
 
-  const catagory = await Catagory.findOne({ name: catagoryName });
+  const catagory = await Catagory.findOne({ name: catagoryName.trim() });
   if (!catagory) return next(new AppError("Catagory not found", 404));
 
   // Check if a particular with the same name already exists in this category
@@ -49,17 +48,6 @@ const addParticular = catchAsync(async (req, res, next) => {
   const currentDateAndTime = combineDateWithCurrentTime(new Date());
   currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
 
-  // const log = new Log({
-  //   log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
-  //     req.user.name
-  //   } added a new particular ${
-  //     particular.name
-  //   } to the ${catagoryName} catagory`,
-  //   user: req.user._id,
-  // });
-
-  // await log.save();
-
   res.status(201).json({
     status: "Success",
     message: "Particular added successfully",
@@ -82,7 +70,9 @@ const updateParticular = catchAsync(async (req, res, next) => {
   if (particularName === particular.name)
     return next(new AppError("Nothing to Update", 400));
 
-  const catagory = await Catagory.findOne({ name: catagoryName });
+  const catagroyCor = catagoryName.replaceAll("&", "!@#$%^&*()");
+
+  const catagory = await Catagory.findOne({ name: catagroyCor });
   if (!catagory) return next(new AppError("Catagory not found", 404));
 
   const updatedParticular = await Particulars.findOneAndUpdate(
@@ -100,17 +90,6 @@ const updateParticular = catchAsync(async (req, res, next) => {
 
   const currentDateAndTime = combineDateWithCurrentTime(new Date());
   currentDateAndTime.format("MMMM Do YYYY, h:mm:ss a");
-
-  // const log = new Log({
-  //   log: `${currentDateAndTime.format("MMMM Do YYYY, h:mm a")} ${
-  //     req.user.name
-  //   } updated the particular from ${particularName} to ${
-  //     particular.name
-  //   } in the ${catagoryName} catagory`,
-  //   user: req.user._id,
-  // });
-
-  // await log.save();
 
   res.status(200).json({
     status: "Success",
