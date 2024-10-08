@@ -70,10 +70,6 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
 
   const { branches, bank: curBank, amount, type } = transaction;
 
-  // Initialize arrays for batch operations
-  const branchUpdates = [];
-  const bankUpdates = [];
-
   // Update each branch's balance
   for (let i = 0; i < branches.length; i++) {
     const { amount: branchAmount, branchName } = branches[i];
@@ -84,17 +80,12 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
     }
 
     if (type === "Credit") {
-      // if (curBranch[curBank] < branchAmount) {
-      //   return next(
-      //     new AppError(`${branchName}'s balance in ${curBank} is low`, 400)
-      //   );
-      // }
       curBranch[curBank] -= branchAmount;
-    } else {
+    } else if (type === "Debit") {
       curBranch[curBank] += branchAmount;
     }
 
-    branchUpdates.push(curBranch.save());
+    await curBranch.save();
   }
 
   // Update bank balance
@@ -103,15 +94,14 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
     return next(new AppError(`Bank ${curBank} not found`, 404));
   }
 
-  // if (bank.balance < amount) {
-  //   return next(new AppError(`Your ${curBank}'s balance is low`, 400));
-  // }
+  if (type === "Credit") {
+    bank.balance -= amount;
+    console.log(bank.balance, "bank balance");
+  } else if (type === "Debit") {
+    bank.balance += amount;
+  }
 
-  bank.balance -= amount;
-  bankUpdates.push(bank.save()); // Collect bank update promises
-
-  // Perform all updates concurrently
-  await Promise.all([...branchUpdates, ...bankUpdates]);
+  await bank.save();
 
   // Delete the transaction after updates are successful
   await Transaction.findByIdAndDelete(transactionId);
