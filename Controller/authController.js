@@ -86,9 +86,9 @@ const verify = catchAsync(async (req, res, next) => {
     currentUser,
   });
 });
-const mails = ["skymarkdubai@gmail.com"];
+const mails = ["skymarkdubai@gmail.com", "arjun7180@gmail.com"];
 const signUp = catchAsync(async (req, res, next) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password } = req.body;
 
   if (!mails.includes(email)) {
     return next(new AppError("You are not Authorized", 401));
@@ -99,7 +99,6 @@ const signUp = catchAsync(async (req, res, next) => {
     name,
     email,
     password,
-    phone,
   });
 
   // Send the token

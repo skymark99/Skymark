@@ -21,7 +21,7 @@ const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
   message: "Too many requests from this IP, please try again in 10 minutes!",
 });
-app.use("/v1", limiter);
+// app.use("/v1", limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" })); // Body larger than 10kb will not be accepted

@@ -48,9 +48,9 @@ const getBalance = catchAsync(async (req, res, next) => {
 
   // Calculate percentage hike from last month's balance
   let percentageHike = 0;
-  if (lastMonthBalance > 0) {
+  if (lastMonthBalance !== 0) {
     percentageHike =
-      ((totalBalance - lastMonthBalance) / lastMonthBalance) * 100;
+      ((totalBalance - lastMonthBalance) / Math.abs(lastMonthBalance)) * 100;
   }
 
   res.status(200).json({
@@ -61,7 +61,6 @@ const getBalance = catchAsync(async (req, res, next) => {
     percentageHike: percentageHike.toFixed(2),
   });
 });
-
 const getAllBank = getAll(Bank);
 const getBank = getOne(Bank);
 const createBank = createOne(Bank);

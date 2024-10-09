@@ -6,7 +6,6 @@ const sendErr = (err, res) => {
     message: err.message,
     isOperational: err.isOperational,
     error: err,
-    stack: err.stack,
   });
 };
 
