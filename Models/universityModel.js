@@ -20,7 +20,7 @@ const universitySchema = mongoose.Schema(
         "Manjeri",
         "Kannur",
         "Directors",
-        "Corporate",
+        "Hilite",
       ],
       required: [true, "Branch must have a name"],
     },

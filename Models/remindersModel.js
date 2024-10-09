@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
-const Catagory = require("./catagoryModel");
-const AppError = require("../Utilities/appError");
-const {
-  currentDateFormatter,
-  combineDateWithCurrentTime,
-} = require("../Utilities/helper");
+const { combineDateWithCurrentTime } = require("../Utilities/helper");
 
 const reminderSchema = mongoose.Schema(
   {

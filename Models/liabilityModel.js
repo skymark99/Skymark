@@ -51,20 +51,28 @@ const liabilitySchema = mongoose.Schema(
       ],
     },
 
-    branch: {
-      type: String,
-      enum: [
-        "Kozhikode",
-        "Kottayam",
-        "Kochi",
-        "Manjeri",
-        "Kannur",
-        "Directors",
-        "Corporate",
-      ],
-      required: [true, "Branch must have a name"],
-    },
-
+    branches: [
+      {
+        amount: {
+          type: Number,
+          required: [true, "Branch amount must be specified"],
+          min: [0, "Amount must be a positive number"],
+        },
+        branchName: {
+          type: String,
+          enum: [
+            "Kozhikode",
+            "Kottayam",
+            "Kochi",
+            "Manjeri",
+            "Kannur",
+            "Corporate",
+            "Directors",
+          ],
+          required: [true, "Branch must have a name"],
+        },
+      },
+    ],
     formattedDate: {
       type: String,
     },
