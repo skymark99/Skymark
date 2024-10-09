@@ -12,12 +12,12 @@ const sendToken = (user, statusCode, res) => {
   const token = generateToken(user._id);
   if (!token) return next(new AppError("Server failed to create token", 500));
 
+  // Example: Setting cookie without expiration (session cookie)
   res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 24 * 60 * 60 * 1000,
-    credentials: true, // Add this to ensure cookies are included in cross-origin requests
+    httpOnly: true, // For security
+    sameSite: "Strict", // Prevent CSRF
+    secure: true, // Use in production with HTTPS
+    // No 'expires' or 'maxAge' set, so this will be a session cookie
   });
 
   const currentUser = {
