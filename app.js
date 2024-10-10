@@ -15,13 +15,15 @@ const hpp = require("hpp");
 // Security Headers
 app.use(helmet());
 
-// Rate limiting
 const limiter = rateLimit({
-  max: 100, // max requests
-  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 100, // Maximum number of requests
+  windowMs: 10 * 60 * 1000, // 10 minutes in milliseconds
   message: "Too many requests from this IP, please try again in 10 minutes!",
+  keyGenerator: (req) => req.ip, // Optional: Custom key generator for tracking
 });
-app.use("/v1", limiter);
+
+// Apply to all requests or specific routes
+app.use(limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" })); // Body larger than 10kb will not be accepted
