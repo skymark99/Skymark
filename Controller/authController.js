@@ -23,8 +23,6 @@ const sendToken = (user, statusCode, res) => {
 
   const currentUser = {
     email: user.email,
-    phone: user.phone,
-    image: user.image,
     name: user.name,
   };
 

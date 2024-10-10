@@ -15,6 +15,10 @@ const hpp = require("hpp");
 // Security Headers
 app.use(helmet());
 
+app.use((req, res, next) => {
+  console.log(req.body, "body");
+});
+
 const limiter = rateLimit({
   max: 1000, // Maximum number of requests
   windowMs: 10 * 60 * 1000,
@@ -74,47 +78,47 @@ const corsOptions = {
 // Apply CORS middleware first
 app.use(cors(corsOptions));
 
-// Custom CORS headers (if needed)
-app.use((req, res, next) => {
-  const allowedOrigins = [
-    "https://accounting-frontend-gules.vercel.app",
-    "http://localhost:5173",
-  ];
+// // Custom CORS headers (if needed)
+// app.use((req, res, next) => {
+//   const allowedOrigins = [
+//     "https://accounting-frontend-gules.vercel.app",
+//     "http://localhost:5173",
+//   ];
 
-  const origin = req.headers.origin; // Get the origin of the request
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin); // Allow the request origin
-  }
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
-  next();
-});
+//   const origin = req.headers.origin; // Get the origin of the request
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader("Access-Control-Allow-Origin", origin); // Allow the request origin
+//   }
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
+//   next();
+// });
 
-// Security headers
-app.use((req, res, next) => {
-  // Cache control
-  res.setHeader(
-    "Cache-Control",
-    "no-store, no-cache, must-revalidate, proxy-revalidate"
-  );
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
-  res.setHeader("Surrogate-Control", "no-store");
+// // Security headers
+// app.use((req, res, next) => {
+//   // Cache control
+//   res.setHeader(
+//     "Cache-Control",
+//     "no-store, no-cache, must-revalidate, proxy-revalidate"
+//   );
+//   res.setHeader("Pragma", "no-cache");
+//   res.setHeader("Expires", "0");
+//   res.setHeader("Surrogate-Control", "no-store");
 
-  // Additional security headers
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-Frame-Options", "DENY");
-  res.setHeader("X-XSS-Protection", "1; mode=block");
+//   // Additional security headers
+//   res.setHeader("X-Content-Type-Options", "nosniff");
+//   res.setHeader("X-Frame-Options", "DENY");
+//   res.setHeader("X-XSS-Protection", "1; mode=block");
 
-  // Remove X-Powered-By header
-  res.removeHeader("X-Powered-By");
+//   // Remove X-Powered-By header
+//   res.removeHeader("X-Powered-By");
 
-  next();
-});
+//   next();
+// });
 
 // Trust proxy if behind a reverse proxy
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 
 // Routes
 app.use("/v1", versionOne);
