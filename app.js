@@ -16,10 +16,10 @@ const hpp = require("hpp");
 app.use(helmet());
 
 const limiter = rateLimit({
-  max: 100, // Maximum number of requests
-  windowMs: 10 * 60 * 1000, // 10 minutes in milliseconds
+  max: 1000, // Maximum number of requests
+  windowMs: 10 * 60 * 1000,
   message: "Too many requests from this IP, please try again in 10 minutes!",
-  keyGenerator: (req) => req.ip, // Optional: Custom key generator for tracking
+  keyGenerator: (req) => req.ip,
 });
 
 // Apply to all requests or specific routes
@@ -74,14 +74,20 @@ const corsOptions = {
 // Apply CORS middleware first
 app.use(cors(corsOptions));
 
-// Then set custom CORS headers (if needed)
+// Custom CORS headers (if needed)
 app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://accounting-frontend-gules.vercel.app"
-  );
+  const allowedOrigins = [
+    "https://accounting-frontend-gules.vercel.app",
+    "http://localhost:5173",
+  ];
+
+  const origin = req.headers.origin; // Get the origin of the request
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin); // Allow the request origin
+  }
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
   next();
 });
 
