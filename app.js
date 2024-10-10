@@ -46,7 +46,6 @@ app.use(
 // Compression
 app.use(compression({ threshold: 512 }));
 
-// CORS configuration
 const allowedOrigins = [
   "https://accounting-frontend-gules.vercel.app",
   "http://localhost:5173",
@@ -72,17 +71,19 @@ const corsOptions = {
   maxAge: 3600, // Maximum age for CORS preflight request cache
   exposedHeaders: ["Set-Cookie"],
 };
+// Apply CORS middleware first
+app.use(cors(corsOptions));
+
+// Then set custom CORS headers (if needed)
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://accounting-frontend-gules.vercel.app"
-  ); // Replace with your frontend's origin
+  );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
-
-app.use(cors(corsOptions));
 
 // Security headers
 app.use((req, res, next) => {
