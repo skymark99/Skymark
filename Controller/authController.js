@@ -15,7 +15,7 @@ const sendToken = (user, statusCode, res) => {
   // Example: Setting cookie without expiration (session cookie)
   res.cookie("token", token, {
     httpOnly: true, // For security
-    sameSite: "Strict", // Prevent CSRF
+    sameSite: "none", // Prevent CSRF
     secure: true, // Use in production with HTTPS
     // No 'expires' or 'maxAge' set, so this will be a session cookie
   });
