@@ -6,7 +6,8 @@ const AppError = require("../Utilities/appError");
 const KEY = process.env.JWT_SECRET;
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, KEY);
+  const expiresIn = Math.floor(Date.now() / 1000) + 60 * 60;
+  return jwt.sign({ id, exp: expiresIn }, KEY);
 };
 const sendToken = (user, statusCode, res) => {
   const token = generateToken(user._id);

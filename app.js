@@ -72,6 +72,15 @@ const corsOptions = {
   maxAge: 3600, // Maximum age for CORS preflight request cache
   exposedHeaders: ["Set-Cookie"],
 };
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://accounting-frontend-gules.vercel.app"
+  ); // Replace with your frontend's origin
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 app.use(cors(corsOptions));
 
