@@ -40,6 +40,16 @@ const bankTransfer = catchAsync(async (req, res, next) => {
 const getBalance = catchAsync(async (req, res, next) => {
   const banks = await Bank.find({});
 
+  if (!banks.length) {
+    return res.status(200).json({
+      status: "Success",
+      message: "No banks found",
+      totalBalance: 0,
+      lastMonthBalance: 0,
+      percentageHike: "0.00",
+    });
+  }
+
   const totalBalance = banks.reduce((acc, bal) => acc + bal.balance, 0);
   const lastMonthBalance = banks.reduce(
     (acc, bal) => acc + bal.lastMonthBalance,
