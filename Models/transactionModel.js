@@ -24,8 +24,8 @@ const transactionShema = mongoose.Schema(
     purpose: {
       type: String,
       required: [true, "Transaction Must hava a purpose"],
-      minlength: [3, "Branch name must be at least 3 characters long"],
-      maxlength: [30, "Branch name must be less than 50 characters long"],
+      minlength: [3, "Purpose name must be at least 3 characters long"],
+      maxlength: [30, "Purpose name must be less than 50 characters long"],
     },
     amount: {
       type: Number,
