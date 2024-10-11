@@ -96,7 +96,6 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
 
   if (type === "Credit") {
     bank.balance -= amount;
-    console.log(bank.balance, "bank balance");
   } else if (type === "Debit") {
     bank.balance += amount;
   }

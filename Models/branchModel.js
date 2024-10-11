@@ -39,6 +39,10 @@ const branchSchema = mongoose.Schema(
       type: Number,
       required: [true, "Need to mention CASH balance"],
     },
+    BANDAN: {
+      type: Number,
+      required: [true, "Need to mention BANDAN balance"],
+    },
   },
   { timestamps: true }
 );

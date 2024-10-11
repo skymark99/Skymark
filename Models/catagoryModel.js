@@ -25,8 +25,6 @@ catagorySchema.index({ _id: 1, particulars: 1 }, { unique: true });
 
 catagorySchema.pre("save", function (next) {
   this.name = this.name.trim();
-  console.log(this.name.length);
-  console.log(this.name);
   next();
 });
 catagorySchema.pre(/^find/, function (next) {

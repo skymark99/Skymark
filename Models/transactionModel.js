@@ -34,7 +34,7 @@ const transactionShema = mongoose.Schema(
     },
     bank: {
       type: String,
-      enum: ["RBL", "ICICI", "RAK", "HDFC", "CASH"],
+      enum: ["RBL", "ICICI", "RAK", "HDFC", "CASH", "BANDAN"],
       required: [true, "Bank must have a name"],
     },
 
