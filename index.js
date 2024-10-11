@@ -6,13 +6,6 @@ const app = require("./app");
 
 const Db = process.env.CONNECTION_STR;
 
-// Handling uncaught exceptions
-process.on("uncaughtException", (err) => {
-  console.error("UNCAUGHT EXCEPTION! 💥 Shutting down...");
-  console.error(err.name, err.message);
-  process.exit(1);
-});
-
 // Connect to MongoDB
 mongoose
   .connect(Db)
@@ -30,13 +23,4 @@ const server = app.listen(PORT, (err) => {
   } else {
     console.log(`Server is running on port ${PORT}`);
   }
-});
-
-// Handling unhandled rejections
-process.on("unhandledRejection", (err) => {
-  console.error("UNHANDLED REJECTION! 💥 Shutting down...");
-  console.error(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
 });

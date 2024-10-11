@@ -11,7 +11,7 @@ const branchSchema = mongoose.Schema(
         "Manjeri",
         "Kannur",
         "Directors",
-        "Hilite",
+        "Corporate",
       ],
       required: [true, "Branch must have a name"],
     },
