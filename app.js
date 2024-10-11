@@ -13,7 +13,24 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 
 // Security Headers
-app.use(helmet());
+// app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    frameguard: { action: "deny" },
+    hsts: { maxAge: 31536000, includeSubDomains: true }, // Enforce HTTPS for one year
+    noCache: true,
+    ieNoOpen: true, // Prevent download of untrusted content
+    dnsPrefetchControl: { allow: false }, // Prevent DNS prefetching
+  })
+);
 
 const limiter = rateLimit({
   max: 1000, // Maximum number of requests
