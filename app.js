@@ -32,15 +32,15 @@ app.use(
   })
 );
 
-const limiter = rateLimit({
-  max: 1000, // Maximum number of requests
-  windowMs: 10 * 60 * 1000,
-  message: "Too many requests from this IP, please try again in 10 minutes!",
-  keyGenerator: (req) => req.ip,
-});
+// // const limiter = rateLimit({
+// //   max: 1000, // Maximum number of requests
+// //   windowMs: 10 * 60 * 1000,
+// //   message: "Too many requests from this IP, please try again in 10 minutes!",
+// //   keyGenerator: (req) => req.ip,
+// // });
 
-// Apply to all requests or specific routes
-app.use(limiter);
+// // Apply to all requests or specific routes
+// app.use(limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" })); // Body larger than 10kb will not be accepted
