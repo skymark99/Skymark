@@ -4,8 +4,6 @@ const Branch = require("./branchModel");
 const AppError = require("../Utilities/appError");
 
 const { combineDateWithCurrentTime } = require("../Utilities/helper");
-const Catagory = require("./catagoryModel");
-const Particulars = require("./particularsModel");
 
 const transactionShema = mongoose.Schema(
   {
