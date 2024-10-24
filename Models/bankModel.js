@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const cron = require("node-cron");
+const { getBankAccounts } = require("../Data/getData");
 
 const bankSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      enum: ["RBL", "ICICI", "RAK", "HDFC", "CASH", "BANDAN"],
+      enum: getBankAccounts,
       required: [true, "Bank must have a name"],
     },
     balance: {

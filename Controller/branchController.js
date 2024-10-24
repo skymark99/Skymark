@@ -1,4 +1,5 @@
 const APIFeatures = require("../APIFeatures/APIFeatures");
+const { getBranches } = require("../Data/getData");
 const Branch = require("../Models/branchModel");
 const Liablity = require("../Models/liabilityModel");
 const Transaction = require("../Models/transactionModel");
@@ -258,15 +259,7 @@ const monthWiseBranchPnl = catchAsync(async (req, res, next) => {
       : (parseInt(month) + 1).toString().padStart(2, "0");
   const nextYear = parseInt(month) === 12 ? parseInt(year) + 1 : year;
 
-  const branchesList = [
-    "Kannur",
-    "Manjeri",
-    "Kochi",
-    "Kottayam",
-    "Kozhikode",
-    "Directors",
-    "Corporate",
-  ];
+  const branchesList = getBranches;
 
   const transactionStatsPromise = Transaction.aggregate([
     {

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { combineDateWithCurrentTime } = require("../Utilities/helper");
+const { getBranches } = require("../Data/getData");
 
 const universitySchema = mongoose.Schema(
   {
@@ -13,15 +14,7 @@ const universitySchema = mongoose.Schema(
     },
     branchName: {
       type: String,
-      enum: [
-        "Kozhikode",
-        "Kottayam",
-        "Kochi",
-        "Manjeri",
-        "Kannur",
-        "Directors",
-        "Hilite",
-      ],
+      enum: getBranches,
       required: [true, "Branch must have a name"],
     },
 

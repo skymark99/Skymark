@@ -1,18 +1,11 @@
 const mongoose = require("mongoose");
+const { getBranches } = require("../Data/getData");
 
 const branchSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      enum: [
-        "Kozhikode",
-        "Kottayam",
-        "Kochi",
-        "Manjeri",
-        "Kannur",
-        "Directors",
-        "Corporate",
-      ],
+      enum: getBranches,
       required: [true, "Branch must have a name"],
     },
     balance: {
@@ -48,7 +41,8 @@ const branchSchema = mongoose.Schema(
 );
 
 branchSchema.pre("save", function (next) {
-  this.balance = this.CASH + this.HDFC + this.RBL + this.ICICI + this.RAK;
+  this.balance =
+    this.CASH + this.HDFC + this.RBL + this.ICICI + this.RAK + this.BANDAN;
   next();
 });
 

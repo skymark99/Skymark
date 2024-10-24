@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { combineDateWithCurrentTime } = require("../Utilities/helper");
+const { getBranches } = require("../Data/getData");
 
 const liabilitySchema = mongoose.Schema(
   {
@@ -60,15 +61,7 @@ const liabilitySchema = mongoose.Schema(
         },
         branchName: {
           type: String,
-          enum: [
-            "Kozhikode",
-            "Kottayam",
-            "Kochi",
-            "Manjeri",
-            "Kannur",
-            "Corporate",
-            "Directors",
-          ],
+          enum: getBranches,
           required: [true, "Branch must have a name"],
         },
       },

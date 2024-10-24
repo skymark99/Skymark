@@ -4,6 +4,7 @@ const Branch = require("./branchModel");
 const AppError = require("../Utilities/appError");
 
 const { combineDateWithCurrentTime } = require("../Utilities/helper");
+const { getBranches } = require("../Data/getData");
 
 const transactionShema = mongoose.Schema(
   {
@@ -64,15 +65,7 @@ const transactionShema = mongoose.Schema(
         },
         branchName: {
           type: String,
-          enum: [
-            "Kozhikode",
-            "Kottayam",
-            "Kochi",
-            "Manjeri",
-            "Kannur",
-            "Corporate",
-            "Directors",
-          ],
+          enum: getBranches,
           required: [true, "Branch must have a name"],
         },
       },

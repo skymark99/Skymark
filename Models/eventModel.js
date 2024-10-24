@@ -1,20 +1,13 @@
 // ... existing code ...
 const mongoose = require("mongoose");
 const AppError = require("../Utilities/appError");
+const { getBranches } = require("../Data/getData");
 
 const eventSchema = mongoose.Schema(
   {
     branchName: {
       type: String,
-      enum: [
-        "Kozhikode",
-        "Kochi",
-        "Kannur",
-        "Corporate",
-        "Manjeri",
-        "Directors",
-        "Kottayam",
-      ],
+      enum: getBranches,
       required: [true, "Branch name is required for event"],
     },
     name: {
