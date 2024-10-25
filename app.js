@@ -96,6 +96,8 @@ app.use((req, res, next) => {
   const allowedOrigins = [
     "https://accounting-frontend-gules.vercel.app",
     "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
   ];
 
   const origin = req.headers.origin; // Get the origin of the request

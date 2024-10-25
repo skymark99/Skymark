@@ -8,12 +8,13 @@ const {
   monthWiseBranchPnl,
   yearlyPnl,
   allMonthBranchPnl,
+  branchWiseBalance,
 } = require("../Controller/branchController");
 const router = express.Router();
 
 router.get("/month-wise-pnl", monthWiseBranchPnl);
 router.get("/all-month-pnl", allMonthBranchPnl);
-+``;
+router.get("/branch-wise-balance", branchWiseBalance);
 router.get("/yearly-pnl", yearlyPnl);
 
 router.get("/", getAllBranch);

@@ -5,14 +5,12 @@ const {
   updateTransaction,
   getTransaction,
   deleteTransaction,
-  deleteManyTransactions,
   balanceSheet,
   deleteTransactionByIdMiddleWare,
   downloadTranscation,
 } = require("../Controller/transactionController");
 const router = express.Router();
 
-router.delete("/delete-transactions", deleteManyTransactions);
 router.get("/balance-sheet", balanceSheet);
 router.get("/download", downloadTranscation);
 

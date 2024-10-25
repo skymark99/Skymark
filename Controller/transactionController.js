@@ -47,7 +47,7 @@ const updateTransaction = catchAsync(async (req, res, next) => {
 
   const transaction = new Transaction(updates);
   try {
-    await transaction.save();
+    await transaction.save({ runValidators: true });
   } catch (err) {
     await Transaction.create(req.oldTransaction);
   }
@@ -109,74 +109,6 @@ const deleteTransactionByIdMiddleWare = catchAsync(async (req, res, next) => {
   req.oldTransaction = transaction.toObject();
 
   next();
-});
-
-const deleteManyTransactions = catchAsync(async (req, res, next) => {
-  const ids = req.body.ids;
-
-  // Fetch all transactions by IDs
-  const transactions = await Promise.all(
-    ids.map((id) => Transaction.findById(id))
-  );
-
-  // Filter out non-existing transactions
-  const validTransactions = transactions.filter((transaction) => transaction);
-
-  // Initialize arrays for batch operations
-  const branchUpdates = [];
-  const bankUpdates = [];
-
-  for (let i = 0; i < validTransactions.length; i++) {
-    const transaction = validTransactions[i];
-    const { branches, bank: curBank, amount, type } = transaction;
-
-    // Update each branch's balance
-    for (let j = 0; j < branches.length; j++) {
-      const { amount: branchAmount, branchName } = branches[j];
-      const curBranch = await Branch.findOne({ name: branchName });
-
-      if (!curBranch) {
-        return next(new AppError(`Branch ${branchName} not found`, 404));
-      }
-
-      if (type === "Credit") {
-        if (curBranch[curBank] < branchAmount) {
-          return next(
-            new AppError(`${branchName}'s balance in ${curBank} is low`, 400)
-          );
-        }
-        curBranch[curBank] -= branchAmount;
-      } else {
-        curBranch[curBank] += branchAmount;
-      }
-
-      branchUpdates.push(curBranch.save()); // Collect branch update promises
-    }
-
-    // Update bank balance
-    const bank = await Bank.findOne({ name: curBank });
-    if (!bank) {
-      return next(new AppError(`Bank ${curBank} not found`, 404));
-    }
-
-    if (bank.balance < amount) {
-      return next(new AppError(`Your ${curBank}'s balance is low`, 400));
-    }
-
-    bank.balance -= amount;
-    bankUpdates.push(bank.save()); // Collect bank update promises
-  }
-
-  // Perform all updates concurrently
-  await Promise.all([...branchUpdates, ...bankUpdates]);
-
-  // Delete all transactions after updates are successful
-  await Transaction.deleteMany({ _id: { $in: ids } });
-
-  res.status(200).json({
-    status: "success",
-    message: "Transactions deleted successfully",
-  });
 });
 
 const balanceSheet = catchAsync(async (req, res, next) => {
@@ -355,7 +287,6 @@ module.exports = {
   createTransaction,
   updateTransaction,
   deleteTransaction,
-  deleteManyTransactions,
   balanceSheet,
   deleteTransactionByIdMiddleWare,
   downloadTranscation,

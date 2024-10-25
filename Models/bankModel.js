@@ -8,6 +8,7 @@ const bankSchema = mongoose.Schema(
       type: String,
       enum: getBankAccounts,
       required: [true, "Bank must have a name"],
+      unique: [true, "Bank name must be unique"],
     },
     balance: {
       type: Number,

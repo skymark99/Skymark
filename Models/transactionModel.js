@@ -100,11 +100,19 @@ transactionShema.pre("save", async function (next) {
     await branch.save();
   });
 
-  if (this.type === "Credit") {
-    bank.balance += parseInt(this.amount);
-  } else if (this.type === "Debit") {
-    bank.balance -= parseInt(this.amount);
+  const amount = parseFloat(this.amount);
+  if (isNaN(amount)) {
+    throw new Error("Invalid amount");
   }
+
+  if (this.type === "Credit") {
+    bank.balance += amount;
+  } else if (this.type === "Debit") {
+    bank.balance -= amount;
+  } else {
+    throw new Error("Invalid transaction type");
+  }
+
   await bank.save();
 });
 
